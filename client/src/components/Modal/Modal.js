@@ -1,4 +1,6 @@
-export default class Modal extends React.Component {
+import React, { Component } from 'react';
+
+export default class Modal extends Component {
     render() {
         if(!this.props.show){
             return null;

@@ -1,12 +1,13 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Dialog } from 'material-ui';
 import _ from 'lodash';
 import { closeMovieModal } from './movie-modal.actions';
 import { getMovieDetails, getMovieCredits } from '../movie-browser.actions';
 import * as movieHelpers from '../movie-browser.helpers';
 import Loader from '../../common/loader.component';
-import {Row, Col} from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 
 const styles = {
   // Can use functions to dynamically build our CSS
@@ -33,7 +34,7 @@ class MovieModalContainer extends React.Component {
   }
 
   render() {
-    const {isOpen, closeMovieModal, isLoading} = this.props;
+    const { isOpen, closeMovieModal, isLoading } = this.props;
     const loadingStatus = isLoading ? 'loading' : 'hide';
     const movie = movieHelpers.updateMoviePictureUrls(this.props.movie);
     const movieCredits = movieHelpers.updateMoviePictureUrls(this.props.movieCredits);
@@ -49,32 +50,57 @@ class MovieModalContainer extends React.Component {
       >
         <button className="close" onClick={closeMovieModal}>X</button>
         <Loader isLoading={isLoading}>
-        
-        {/* <div style={styles.dialogContent(movie.backdrop_path)}> */}
+
+          {/* <div style={styles.dialogContent(movie.backdrop_path)}> */}
           <Row>
-          <Col lg={6}>
-            <div >
-              <h1>{movie.title}</h1>
-              <h5>{genres}</h5>
-              <p>{movie.overview}</p>
-              <p>Popularity: {movie.popularity}</p>
-              <p>Budget: ${movie.budget}</p>
-              <button type="button" className="fa fa-heart btn btn-danger btn-sm" id="favIcon" onClick={closeMovieModal}> Favorite</button>
-              <button type="button" className="fa fa-eye btn btn-danger btn-sm m-1" id="seenIcon" onClick={closeMovieModal}> Seen it!</button>
-              <button type="button" className="fa fa-trash btn btn-danger btn-sm" id="rejectIcon" onClick={closeMovieModal}> Reject</button>
-              {/* <p>{movieCredits.cast[0].character}</p> */}
-            </div>
+            <Col lg={6}>
+              <div >
+                <h1>{movie.title}</h1>
+                <h5>{genres}</h5>
+                <p>{movie.overview}</p>
+                <p>Popularity: {movie.popularity}</p>
+                <p>Budget: ${movie.budget}</p>
+                <button type="button" className="fa fa-heart btn btn-danger btn-sm" id="favIcon" onClick={() => {
+                  console.log('tmdId:', movie.id);
+                  axios.put('/api/user/favorite', { body: { tmdId: movie.id } }).then(() =>
+                    closeMovieModal()).catch(reason => {
+                      if (reason.toString().search('530') !== -1) {
+                        // TODO: Show this to the user in a better way
+                        console.log('Please log in to use this feature');
+                      }
+                    });
+                }}> Favorite</button>
+                <button type="button" className="fa fa-eye btn btn-danger btn-sm m-1" id="seenIcon" onClick={() => {
+                  axios.put('/api/user/seen', { body: { tmdId: movie.id } }).then(() =>
+                    closeMovieModal()).catch(reason => {
+                      if (reason.toString().search('530') !== -1) {
+                        // TODO: Show this to the user in a better way
+                        console.log('Please log in to use this feature');
+                      }
+                    });
+                }}> Seen it!</button>
+                <button type="button" className="fa fa-trash btn btn-danger btn-sm" id="rejectIcon" onClick={() => {
+                  axios.put('/api/user/reject', { body: { tmdId: movie.id } }).then(() =>
+                    closeMovieModal()).catch(reason => {
+                      if (reason.toString().search('530') !== -1) {
+                        // TODO: Show this to the user in a better way
+                        console.log('Please log in to use this feature');
+                      }
+                    });
+                }}> Reject</button>
+                {/* <p>{movieCredits.cast[0].character}</p> */}
+              </div>
             </Col>
             <Col lg={6}>
-            <img  src={movie.poster_path} alt={movie.title} />
-            {/* <img  src={movieCredits.profile_path} alt={movieCredits.name} /> */}
-            
+              <img src={movie.poster_path} alt={movie.title} />
+              {/* <img  src={movieCredits.profile_path} alt={movieCredits.name} /> */}
+
             </Col>
-            </Row>
-        {/* </div> */}
-          
+          </Row>
+          {/* </div> */}
+
         </Loader>
-    </Dialog>
+      </Dialog>
     );
   }
 }

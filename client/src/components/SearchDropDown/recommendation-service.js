@@ -1,49 +1,33 @@
-// const BASEURL = "https://api.themoviedb.org/3/discover/movie?api_key="
-// "&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1";
+import axios from "axios";
 
-// WARNING: Don't check your actual API key into GitHub
-const MOVIE_DB_API_KEY = 'd9761b9f704ad5a0f60b04f11dbf4503';
-const MOVIE_DB_BASE_URL = 'https://api.themoviedb.org/3';
 
-const createMovieDbUrl = (relativeUrl, queryParams) => {
-  let baseUrl = `${MOVIE_DB_BASE_URL}${relativeUrl}?api_key=${MOVIE_DB_API_KEY}&language=en-US`;
-  if (queryParams) {
-    Object.keys(queryParams)
-      .forEach(paramName => baseUrl += `&${paramName}=${queryParams[paramName]}`);
-  }
-  return baseUrl;
-}
-
-export const getTopMovies = async ({page}) => {
-  const fullUrl = createMovieDbUrl('/movie/top_rated', {
-    page
+export const getTopMovies = async ({ page }) => {
+  return axios.put('/api/movies', {
+    query: {
+      relativeUrl: '/movie/top_rated',
+      params: {
+        page: page
+      }
+    }
   });
-  return fetch(fullUrl);
-}
-// https://api.themoviedb.org/3/movie/upcoming?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US&page=1
+};
 
 
-// https://api.themoviedb.org/3/movie/{movie_id}/recommendations?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US&page=1
 export const getRecommendations = async (movieId) => {
-  console.log(movieId)
-  const fullUrl = createMovieDbUrl(`/movie/${movieId}/recommendations`);
-  return fetch(fullUrl);
+  console.log('get recs:', movieId);
+  return axios.put(`/api/recommend/${movieId}`);
 }
 
 
-export const searchMovies = async ({ page, query}) => {
-  const fullUrl = createMovieDbUrl('/search/movie', {
-    page,
-    query
-  });
-  return fetch(fullUrl);
+export const searchMovies = async (query) => {
+  return axios.get(`/api/movies/search/${query}`);
 }
 
-export const getMovieDetails = async ({movieId}) => {
-  const fullUrl = createMovieDbUrl(`/tv/${movieId}`);
+export const getMovieDetails = async ({ movieId }) => {
+  const fullUrl = `/tv/${movieId}`;
   return fetch(fullUrl);
 }
-export const getMovieCredits = async ({movieId}) => {
-  const fullUrl = createMovieDbUrl(`/tv/${movieId}/credits`);
+export const getMovieCredits = async ({ movieId }) => {
+  const fullUrl = `/tv/${movieId}/credits`;
   return fetch(fullUrl);
 }
