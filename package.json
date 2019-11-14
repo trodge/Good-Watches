@@ -11,9 +11,7 @@
         "install": "cd client && npm install",
         "build": "cd client && npm run build",
         "heroku-postbuild": "npm run build",
-        "test": "mocha",
-        "fix": "node ./node_modules/eslint/bin/eslint.js --fix server.js routes/ models/ client/src",
-        "fix-dry": "node ./node_modules/eslint/bin/eslint.js --fix-dry-run server.js routes/ models/ client/src"
+        "test": "mocha"
     },
     "repository": {
         "type": "git",
@@ -30,6 +28,7 @@
         "cookie-parser": "^1.4.4",
         "cookie-session": "^1.3.3",
         "dotenv": "^8.2.0",
+        "downshift": "^3.4.1",
         "express": "4.17.1",
         "if-env": "^1.0.4",
         "mongodb": "^3.3.3",
@@ -40,20 +39,8 @@
     },
     "devDependencies": {
         "concurrently": "^5.0.0",
-        "eslint": "^6.6.0",
-        "eslint-config-standard": "^14.1.0",
-        "eslint-plugin-flowtype": "^4.3.0",
-        "eslint-plugin-import": "^2.18.2",
-        "eslint-plugin-jsx-a11y": "^6.2.3",
-        "eslint-plugin-node": "^10.0.0",
-        "eslint-plugin-promise": "^4.2.1",
-        "eslint-plugin-react": "^7.16.0",
-        "eslint-plugin-react-hooks": "^2.2.0",
-        "eslint-plugin-standard": "^4.0.1",
         "node-sass": "^4.12.0",
         "nodemon": "^1.19.4",
-        "prettier": "^1.19.1",
-        "prettier-eslint": "^9.0.0",
         "supertest": "^4.0.2"
     }
 }
