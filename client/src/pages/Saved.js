@@ -41,7 +41,6 @@ class Saved extends Component {
             </Card>
           </Col>
         </Row>
-        <Footer />
       </Container>
     );
   }

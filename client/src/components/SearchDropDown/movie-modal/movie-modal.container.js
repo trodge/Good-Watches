@@ -2,10 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { Dialog } from 'material-ui';
 import _ from 'lodash';
-import { closeMovieModal } from './tv-modal.actions';
-import { getMovieDetails, getMovieCredits } from '../tv-browser.actions';
-import * as movieHelpers from '../tv-browser.helpers';
-import Loader from '../../common/loader.component';
+import { closeMovieModal } from './movie-modal.actions';
+import { getMovieDetails, getMovieCredits } from '../recommendation.actions';
+import * as movieHelpers from '../movie-browser.helpers';
+import Loader from '../common/loader.component';
 import {Row, Col} from 'react-bootstrap';
 
 const styles = {
@@ -54,20 +54,21 @@ class MovieModalContainer extends React.Component {
           <Row>
           <Col lg={6}>
             <div >
-              <h1>{movie.original_name}</h1>
+              <h1>{movie.title}</h1>
               <h5>{genres}</h5>
               <p>{movie.overview}</p>
               <p>Popularity: {movie.popularity}</p>
               <p>Budget: ${movie.budget}</p>
-              <button type="button" className="fa fa-heart btn btn-danger btn-sm" id="favIcon" onClick={closeMovieModal}> Favorite</button>
-              <button type="button" className="fa fa-eye btn btn-danger btn-sm m-1" id="seenIcon" onClick={closeMovieModal}> Seen it!</button>
-              <button type="button" className="fa fa-trash btn btn-danger btn-sm" id="rejectIcon" onClick={closeMovieModal}> Reject</button>
+              <button className="fa fa-heart"id="favIcon" onClick={closeMovieModal}> Favorite</button>
+              <button className="fa fa-eye"id="seenIcon" onClick={closeMovieModal}> Seen it!</button>
+              <button className="fa fa-trash"id="rejectIcon" onClick={closeMovieModal}> Reject</button>
               {/* <p>{movieCredits.cast[0].character}</p> */}
             </div>
             </Col>
             <Col lg={6}>
-            <img  src={movie.poster_path} alt={movie.original_name} />
+            <img  src={movie.poster_path} alt={movie.title} />
             {/* <img  src={movieCredits.profile_path} alt={movieCredits.name} /> */}
+            
             </Col>
             </Row>
         {/* </div> */}

@@ -84,7 +84,7 @@ class Auth extends Component {
         <div>
         {this.state.authenticated ? (<button type="button" className="btn btn-danger btn-lg" onClick={() => {this.logoff()}}>
           Log off
-          </button>) : (<button type="button" className="btn btn-danger btn-lg" onClick={() => {this.showModal()}}>
+          </button>) : (<button type="button" className="btn btn-danger btn-sm" onClick={() => {this.showModal()}}>
         Log In
         </button>)
         }
@@ -107,7 +107,7 @@ class Auth extends Component {
             </Row>
           </Modal.Body>
         <Modal.Footer>
-          <button  onClick={e => {
+          <button  type="button" className="btn btn-danger btn-sm" onClick={e => {
                 this.closeModal();
           }}
             > Close </button>

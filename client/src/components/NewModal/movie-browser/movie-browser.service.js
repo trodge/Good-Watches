@@ -54,8 +54,15 @@ export const getRecommendations = async ({ movieId }) => {
 };
 
 
-export const searchMovies = async ({ query }) => {
-  return axios.get(`/api/movies/search/${query}`);
+export const searchMovies = async ({ page, query }) => {
+  return axios.put('/api/movies', {
+    query: {
+      relativeUrl: '/search/movie',
+      params: {
+        page: page
+      }
+    }
+  });
 };
 
 export const getMovieDetails = async ({movieId}) => {

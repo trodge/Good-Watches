@@ -2,12 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { Dialog } from 'material-ui';
 import _ from 'lodash';
-import { closeMovieModal } from './movie-modal.actions';
+import { closeMovieModal, favoriteMovie, seenMovie, rejectMovie } from './movie-modal.actions';
 import { getMovieDetails, getMovieCredits } from '../movie-browser.actions';
 import * as movieHelpers from '../movie-browser.helpers';
 import Loader from '../../common/loader.component';
 import {Row, Col} from 'react-bootstrap';
-import axios from 'axios';
 
 const styles = {
   // Can use functions to dynamically build our CSS
@@ -60,34 +59,21 @@ class MovieModalContainer extends React.Component {
               <p>{movie.overview}</p>
               <p>Popularity: {movie.popularity}</p>
               <p>Budget: ${movie.budget}</p>
-              <button className="fa fa-heart" id="favIcon" onClick={() => {
-                  console.log('tmdId:', movie.id);
-                  axios.put('/api/user/favorite', { body: { tmdId: movie.id }}).then(() =>
-                    closeMovieModal()).catch(reason => {
-                        if (reason.toString().search('530') !== -1) {
-                            // TODO: Show this to the user in a better way
-                            console.log('Please log in to use this feature');
-                        }
-                    });
-                  }}> Favorite</button>
-              <button className="fa fa-eye" id="seenIcon" onClick={() => {
-                  axios.put('/api/user/seen', { body: { tmdId: movie.id }}).then(() =>
-                    closeMovieModal()).catch(reason => {
-                        if (reason.toString().search('530') !== -1) {
-                            // TODO: Show this to the user in a better way
-                            console.log('Please log in to use this feature');
-                        }
-                    });
-                  }}> Seen it!</button>
-              <button className="fa fa-trash" id="rejectIcon" onClick={() => {
-                  axios.put('/api/user/reject', { body: { tmdId: movie.id }}).then(() =>
-                    closeMovieModal()).catch(reason => {
-                        if (reason.toString().search('530') !== -1) {
-                            // TODO: Show this to the user in a better way
-                            console.log('Please log in to use this feature');
-                        }
-                    });
-                  }}> Reject</button>
+              <button type="button" className="fa fa-heart btn btn-danger btn-sm" id="favIcon" onClick={async () => {
+                console.log('click', movie.title);
+                const close = await favoriteMovie(movie.id);
+                return close;
+                }}> Favorite</button>
+              <button type="button" className="fa fa-eye btn btn-danger btn-sm m-1" id="seenIcon" onClick={async () => {
+                console.log('click', movie.title);
+                const close = await seenMovie(movie.id);
+                return close;
+                }}> Seen it!</button>
+              <button type="button" className="fa fa-trash btn btn-danger btn-sm" id="rejectIcon" onClick={async () => {
+                console.log('click', movie.title);
+                const close = await rejectMovie(movie.id);
+                return close;
+                }}> Reject</button>
               {/* <p>{movieCredits.cast[0].character}</p> */}
             </div>
             </Col>

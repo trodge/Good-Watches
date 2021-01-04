@@ -22,38 +22,50 @@ class Home extends Component {
     this.setState({ [name]: value });
   };
 
+  refreshMovies = () => {}/*getMovies(this.state.q)
+    .then(res => this.setState({ movies: res.data }))
+    .catch(err => this.setState({
+      movies: [],
+      message: err || 'No new movies found, try a different query.'
+    }));*/
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    this.refreshMovies();
+  };
+
   render() {
-
+    
     return (
-
-      <Container>
-        <Jumbotron fluid>
-          <Col size='md-12'>
-
-            <h1 className='text-center'>
-              <strong>Find something good to watch</strong>
-            </h1>
-            <br />
-            <h5 className='text-center'>Your one place shop to find recommendations and information on movies and tv shows.</h5>
-
-          </Col>
-          <Row>
-
+        
+          <Container>
+            <Jumbotron fluid>
             <Col size='md-12'>
-              <Card title='Having trouble finding something to watch?' icon='far fa-movie'>
-                {/* <Form
+              
+              <h1 className='text-center'>
+                <strong>Find something good to watch</strong>
+              </h1>
+              <br/>
+              <h5 className='text-center'>Your one place shop to find recommendations and information on movies and tv shows.</h5>
+
+            </Col>
+            <Row>
+              
+              <Col size='md-12'>
+                <Card title='Having trouble finding something to watch?' icon='far fa-movie'>
+                  {/* <Form
                     handleInputChange={this.handleInputChange} handleFormSubmit=
                     {this.handleFormSubmit} q=
                     {
                       this.state.q
                     } /> */}
-                <Dropdown />
-              </Card >
-            </Col>
-          </Row>
-
-          <Row>
-            {/* <Col size='md-12'>
+                    <Dropdown />
+                </Card >
+              </Col>
+            </Row>
+            
+            <Row>
+              {/* <Col size='md-12'>
                 <Card title='Results'> {
                   this.state.movies.length ?
                     (<List>{this.state.movies.map((movie, i) => (
@@ -77,15 +89,13 @@ class Home extends Component {
                     )}
                 </Card>
               </Col> */}
-          </Row>
-          <Row>
-
-          </Row>
-        </Jumbotron>
-        <Footer />
-
-      </Container>
-
+            </Row>
+            <Row>
+              
+            </Row>
+            </Jumbotron>
+          </Container>
+        
     );
   }
 }

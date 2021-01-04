@@ -11,9 +11,7 @@
         "install": "cd client && npm install",
         "build": "cd client && npm run build",
         "heroku-postbuild": "npm run build",
-        "test": "mocha",
-        "fix": "node ./node_modules/eslint/bin/eslint.js --fix server.js routes/ models/ client/src",
-        "fix-dry": "node ./node_modules/eslint/bin/eslint.js --fix-dry-run server.js routes/ models/ client/src"
+        "test": "mocha"
     },
     "repository": {
         "type": "git",

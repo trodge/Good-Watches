@@ -16,7 +16,7 @@ class NewReleases extends Component {
   search = async val => {
     this.setState({ loading: true });
     const results = await search( 
-      `/api/movies/search/${val}`
+      `https://api.themoviedb.org/3/search/movie?query=${val}&api_key=d9761b9f704ad5a0f60b04f11dbf4503`
     );
     const movies = results;
 

@@ -37,7 +37,6 @@
     bottom: 0;
     right: 0;
     z-index: 10;
-    background-color: rgba(42, 78, 241, 0.773);
     transition: all 0.3s ease-out;
     visibility: hidden;
     opacity: 0;
@@ -46,7 +45,7 @@
   
   .Container:hover,
   .Container:focus {
-    box-shadow: 0 13px 33px -7px rgba(42, 78, 241, 0.773);
+    box-shadow: 0 13px 33px -7px rgba(241, 42, 42, 0.773);
     transform: translateY(-10px);
   }
   
